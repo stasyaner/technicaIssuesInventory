@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 var config = {
   devtool: 'eval-source-map',
-  entry:  __dirname + "/app/App.js",
+  entry:  ['webpack/hot/only-dev-server', __dirname + "/app/App.jsx"],
   output: {
     path: __dirname + "/public",
     filename: "bundle.js"
@@ -12,21 +12,22 @@ var config = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel'] //?cacheDirectory
+        loaders: ['react-hot', 'babel?cacheDirectory']
       },
       {
-        test: /\.less$/,
-        exclude: /node_modules/,
+        test: /\.css?$/,
+        loaders: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.less?$/,
         loaders: ['style-loader', 'css-loader', 'less-loader']
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        exclude: /node_modules/,
         loader: 'url-loader?limit=10000&minetype=application/font-woff'
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        exclude: /node_modules/,
         loader: 'file-loader'
       }
     ]
