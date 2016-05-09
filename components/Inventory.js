@@ -3,7 +3,7 @@
 import React, {Component} from 'react';
 import {Table} from 'react-bootstrap';
 
-const Inventory = (props) => {
+export default (props) => {
   let tableContent = props.issues.map((issue) => {
 		return (<tr>
 			<td>{issue.Id}</td>
@@ -42,5 +42,3 @@ const Inventory = (props) => {
 		</Table>
   );
 }
-
-export default Inventory;

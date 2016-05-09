@@ -1,16 +1,16 @@
 var webpack = require('webpack');
 
-var config = {
-  devtool: 'eval-source-map',
-  entry:  ['webpack/hot/only-dev-server', __dirname + "/app/App.jsx"],
+module.exports = {
+  //devtool: 'eval-source-map',
+  entry:  './index',
   output: {
-    path: __dirname + "/public",
-    filename: "bundle.js"
+    publicPath: '/static/',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
         loaders: ['react-hot', 'babel?cacheDirectory']
       },
@@ -33,13 +33,13 @@ var config = {
     ]
   },
   resolve:{
-    extensions: ['', '.js', '.jsx', '.less']
+    extensions: ['', '.js', '.jsx', '.less', '.css']
   },
   devServer: {
-    contentBase: "./public",
-    colors: true,
-    historyApiFallback: true,
-    inline: true,
+    // contentBase: "./public",
+    // colors: true,
+    // historyApiFallback: true,
+    // inline: true,
     proxy: {
       '/xlsxImport': {
         target: 'http://localhost:3000',
@@ -63,5 +63,3 @@ if (process.env.NODE_ENV === 'production') {
     })
   ];
 };
-
-module.exports = config;
