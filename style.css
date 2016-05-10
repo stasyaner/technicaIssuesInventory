@@ -2,3 +2,43 @@
   width: 80%;
   margin: 50px auto 50px auto;
 }
+
+div#inventoryWrapper {
+  height: 280px;
+}
+
+table#inventory {
+  margin: 0;
+  table-layout: fixed;
+}
+
+table#inventory th {
+  text-align: center;
+}
+
+table#inventory td {
+  cursor: pointer;
+}
+
+table#inventory td div {
+  height: 20px;
+  overflow: hidden;
+  margin: 0;
+}
+
+table#inventory tr td:first-child, td:nth-child(2), td:nth-child(3),
+  td:nth-child(6) {
+  text-align: center;
+}
+
+table#inventory th:first-child, th:nth-child(2), th:nth-child(3) {
+  width: 5%;
+}
+
+table#inventory th:nth-child(6) {
+  width: 7%;
+}
+
+/*table#inventory th:nth-child(4) {
+  width:15%;
+}*/
