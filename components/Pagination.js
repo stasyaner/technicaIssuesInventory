@@ -19,9 +19,13 @@ export default (props) => {
        last
        ellipsis
        boundaryLinks
-       items={10}
-       maxButtons={5}
-       activePage={1}/>
+       items={props.pageNumber}
+       maxButtons={props.pagesToShow}
+       activePage={props.activePage}
+       onSelect={(event, selectedEvent) => {
+         event.preventDefault();
+         props.setActivePage(selectedEvent.eventKey)}}
+        />
     </div>
   );
 }

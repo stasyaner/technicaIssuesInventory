@@ -30,9 +30,9 @@ function removeIssueAction(index) {
 export const removeIssue = (index) => dispatch(removeIssueAction(index));
 
 function setActivePageAction(index) {
-  const action = {
+  return {
     type: SET_ACTIVE_PAGE,
     index
   }
 }
-export const setActivePage = (index) => dispatch(setActivePageAction(index));
+export {setActivePageAction};// = (index) => dispatch(setActivePageAction(index));

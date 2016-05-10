@@ -8,7 +8,7 @@ import routes from '../routes';
 export default class Root extends Component {
   render() {
     return(
-      <Provider store={this.props.store}>
+      <Provider store={this.props.store} dispatch={this.props.store.dispatch}>
         <Router history={this.props.history} routes={routes} />
       </Provider>
     );
