@@ -2,17 +2,21 @@
 
 import React, {Component} from 'react';
 import {Table} from 'react-bootstrap';
+import {Link} from 'react-router';
 
 export default (props) => {
+  let i = 0;
   let tableContent = props.issues.map((issue) => {
-		return (<tr>
-			<td><div>{issue.Id}</div></td>
-			<td><div>{issue.Date}</div></td>
-			<td><div>{issue.Environment}</div></td>
-			<td><div>{issue.User}</div></td>
-			<td><div>{issue.Description}</div></td>
-			<td><div>{issue.Status}</div></td>
-		</tr>);
+		return (
+      <tr>
+  			<td><Link to={'/' + i}>{issue.Id}</Link></td>
+  			<td><Link to={'/' + i}>{issue.Date}</Link></td>
+  			<td><Link to={'/' + i}>{issue.Environment}</Link></td>
+  			<td><Link to={'/' + i}>{issue.User}</Link></td>
+  			<td><Link to={'/' + i}>{issue.Description}</Link></td>
+  			<td><Link to={'/' + i++}>{issue.Status}</Link></td>
+		  </tr>
+    );
 	});
   return (
     <div id="inventoryWrapper">

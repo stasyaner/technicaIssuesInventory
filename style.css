@@ -12,18 +12,21 @@ table#inventory {
   table-layout: fixed;
 }
 
-table#inventory th {
-  text-align: center;
-}
-
-table#inventory td {
-  cursor: pointer;
-}
-
-table#inventory td div {
+table#inventory a {
+  display: block;
+  width: 100%;
+  color: inherit;
   height: 20px;
   overflow: hidden;
-  margin: 0;
+  outline: 0;
+}
+
+table#inventory a:hover, a:focus {
+  text-decoration: none;
+}
+
+table#inventory th {
+  text-align: center;
 }
 
 table#inventory tr td:first-child, td:nth-child(2), td:nth-child(3),
@@ -35,10 +38,10 @@ table#inventory th:first-child, th:nth-child(2), th:nth-child(3) {
   width: 5%;
 }
 
+table#inventory th:nth-child(4) {
+  width: 25%;
+}
+
 table#inventory th:nth-child(6) {
   width: 7%;
 }
-
-/*table#inventory th:nth-child(4) {
-  width:15%;
-}*/

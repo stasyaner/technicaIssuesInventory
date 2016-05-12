@@ -38,7 +38,7 @@ module.exports = {
   devServer: {
     // contentBase: "./public",
     // colors: true,
-    // historyApiFallback: true,
+    historyApiFallback: true, // !!this is rly needed for HTML5 history api and react router
     // inline: true,
     proxy: {
       '/xlsxImport': {
