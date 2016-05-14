@@ -2,12 +2,10 @@
 
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import Inventory from '../components/Inventory';
 import Pagination from '../components/Pagination';
-import Details from '../components/Details';
-import {addIssue, removeIssue, editIssue, setActivePageAction}
-  from '../actions';
+import Menu from '../components/Menu';
+import {setActivePageAction, removeIssueAction} from '../actions';
 
 class InventoryContainer extends Component{
   constructor(){
@@ -17,15 +15,18 @@ class InventoryContainer extends Component{
   render() {
     return (
       <div>
-        <Inventory issues={this.props.issuesToShow} />
+        <Menu/>
+        <Inventory
+          issuesToShow={this.props.issuesToShow}
+          activePage={this.props.activePage}
+          issuesToShowNumber={this.props.issuesToShowNumber}
+          removeIssue={this.props.removeIssue}/>
         <Pagination
           activePage={this.props.activePage}
-          pageNumber={this.props.pageNumber}
+          numberOfPages={this.props.numberOfPages}
           pagesToShow={this.props.pagesToShow}
           setActivePage={this.props.setActivePage}/>
-        <Details issue={this.props.issueId &&
-          this.props.issueId < this.props.issuesToShow.length &&
-          this.props.issuesToShow[this.props.issueId]} />
+        {this.props.children}
       </div>
     );
   }
@@ -36,7 +37,7 @@ const mapStateToProps = (state, ownProps) => {
     activePage: state.activePage,
     issuesToShowNumber: state.issuesToShowNumber,
     issuesToShow: state.issuesToShow,
-    pageNumber: state.pageNumber,
+    numberOfPages: state.numberOfPages,
     activePage: state.activePage,
     pagesToShow: state.pagesToShow,
     issueId: ownProps.params.issueId
@@ -45,7 +46,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setActivePage: (index) => dispatch(setActivePageAction(index))
+    setActivePage: (activePage) => dispatch(setActivePageAction(activePage)),
+    removeIssue: (index) => dispatch(removeIssueAction(index))
   }
 }
 

@@ -2,16 +2,18 @@
 
 import React, {Component, PropTypes} from 'react';
 import {Pagination} from 'react-bootstrap';
-// import {Link} from 'react-router';
-//
+import {Link} from 'react-router';
+
 // class LinkWrapper extends Component{
-//   constructor(){
+//   constructor() {
 //     super(...arguments);
 //   }
+//
 //   render() {
-//     return <Link to='/0'>{this.props.children}</Link>;
+//     return <Link to={{pathname: '/page/' + this.props.children}}>{this.props.children}</Link>;
 //   }
 // }
+// buttonComponentClass={LinkWrapper}
 
 export default (props) => {
   return (
@@ -24,11 +26,10 @@ export default (props) => {
         ellipsis
         boundaryLinks
         bsSize='small'
-        items={props.pageNumber}
+        items={props.numberOfPages}
         maxButtons={props.pagesToShow}
-        {/*buttonComponentClass={LinkWrapper}*/}
         activePage={props.activePage}
-        onSelect={(eventKey) => {props.setActivePage(eventKey)}}
+        onSelect={props.setActivePage}
       />
     </div>
   );

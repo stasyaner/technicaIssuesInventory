@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react';
-import {Button, Glyphicon, Form, FormGroup, Col, ControlLabel} from 'react-bootstrap';
+import {Button, Glyphicon, Form, FormGroup, Col, ControlLabel, Panel} from 'react-bootstrap';
 
 export default (props) => {
   if(props.issue) {
@@ -9,23 +9,8 @@ export default (props) => {
       Solution, Handledby, Category, Status} = props.issue;
     return (
       <div id='detailsWrapper'>
-      <h3>Details</h3>
+      <Panel header={<h3>Details</h3>}>
         <Form horizontal>
-          <FormGroup>
-            <Col md={2} mdOffset={4}>
-              <Button bsStyle='success'>
-                <Glyphicon glyph='plus'/>
-              </Button>
-              {' '}
-              <Button bsStyle='info'>
-                <Glyphicon glyph='pencil'/>
-              </Button>
-              {' '}
-              <Button bsStyle='danger'>
-                <Glyphicon glyph='trash'/>
-              </Button>
-            </Col>
-          </FormGroup>
           <FormGroup>
             <Col componentClass={ControlLabel} md={1}>
               Id
@@ -40,7 +25,7 @@ export default (props) => {
             <Col componentClass={ControlLabel} md={1}>
               Date
             </Col>
-            <Col md={1}>
+            <Col md={2}>
               <input className='form-control' readOnly type='text'
                 value={Date}></input>
             </Col>
@@ -108,9 +93,9 @@ export default (props) => {
 
           <FormGroup>
             <Col componentClass={ControlLabel} md={1}>
-              Handled by
+              Handled
             </Col>
-            <Col md={1}>
+            <Col md={2}>
               <input className='form-control' readOnly type='text'
                 value={Handledby}></input>
             </Col>
@@ -120,7 +105,7 @@ export default (props) => {
             <Col componentClass={ControlLabel} md={1}>
               Category
             </Col>
-            <Col md={1}>
+            <Col md={2}>
               <input className='form-control' readOnly type='text'
                 value={Category}></input>
             </Col>
@@ -130,12 +115,13 @@ export default (props) => {
             <Col componentClass={ControlLabel} md={1}>
               Status
             </Col>
-            <Col md={1}>
+            <Col md={2}>
               <input className='form-control' readOnly type='text'
                 value={Status}></input>
             </Col>
           </FormGroup>
         </Form>
+        </Panel>
       </div>
     );
   }

@@ -23,6 +23,11 @@ module.exports = {
         loaders: ['style-loader', 'css-loader', 'less-loader']
       },
       {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
+      }
+      ,
+      {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader?limit=10000&minetype=application/font-woff'
       },
@@ -33,10 +38,10 @@ module.exports = {
     ]
   },
   resolve:{
-    extensions: ['', '.js', '.jsx', '.less', '.css']
+    extensions: ['', '.js', '.jsx', '.less', '.css', '.scss']
   },
   devServer: {
-    // contentBase: "./public",
+    // contentBase: './public',
     // colors: true,
     historyApiFallback: true, // !!this is rly needed for HTML5 history api and react router
     // inline: true,
