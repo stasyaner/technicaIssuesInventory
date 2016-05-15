@@ -10,10 +10,8 @@ function getInitialState() {
   if((issues.length % issuesToShowNumber) > 0) {
     numberOfPages = Math.floor(issues.length / issuesToShowNumber) + 1;
   };
-
-  const startSlice = (numberOfPages - 1) * issuesToShowNumber;
-  const endSlice = startSlice + issuesToShowNumber;
-  const issuesToShow = issues.slice((numberOfPages - 1) * issuesToShowNumber);
+  let issuesToShow = getIssuesToShow(issues, numberOfPages,
+    issuesToShowNumber);
 
   return {
     issues,
@@ -39,21 +37,21 @@ const rootReducer = (state = getInitialState(), action) => {
       return Object.assign({}, state, {
         issuesToShow: getIssuesToShow(state.issues, action.activePage,
           state.issuesToShowNumber),
-        activePage: action.activePage,
-        numberOfPages
+        activePage: action.activePage
       });
     case ActionTypes.TOGGLE_ADD_ISSUE_MODAL:
       return Object.assign({}, state, {
         showAddIssueModal: !state.showAddIssueModal
       });
     case ActionTypes.REMOVE_ISSUE:
-      //Equal to: state.issues.slice(0, action.index)
-      //  .concat(state.issues.slice(action.index + 1))
       let newNumberOfPages = state.numberOfPages;
       let newActivePage = state.activePage;
 
+      //Equal to: state.issues.slice(0, action.index)
+      //  .concat(state.issues.slice(action.index + 1))
       const newIssues = [...state.issues.slice(0, action.index),
         ...state.issues.slice(action.index + 1)];
+      localStorage.setItem('issues', JSON.stringify(newIssues));
 
       let newIssuesToShow = getIssuesToShow(newIssues, state.activePage,
         state.issuesToShowNumber);

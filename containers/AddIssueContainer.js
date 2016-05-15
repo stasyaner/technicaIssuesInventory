@@ -10,12 +10,9 @@ class AddIssueContainer extends Component{
   constructor(){
     super(...arguments);
   }
-
-  componentDidMount() {
-    document.title = document.title + ' -- Add An Issue';
-  }
-
+  
   render() {
+    document.title += ' -- Add An Issue';
     return (
       <AddIssue
         showAddIssueModal={this.props.showAddIssueModal}
@@ -23,6 +20,7 @@ class AddIssueContainer extends Component{
           () => {
             this.props.toggleAddIssueModal();
             browserHistory.goBack();
+            this.props.toggleAddIssueModal();
           }
         }/>
     )

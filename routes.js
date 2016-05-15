@@ -14,6 +14,5 @@ export default (
     <Route path='page/:pageId'/>
     <Route path='details/:issueId' component={DetailsContainer}/>
     <Route path='addIssue' component={AddIssueContainer}/>
-    <Route path='delete' component={DeleteIssueContainer}/>
   </Route>
 );

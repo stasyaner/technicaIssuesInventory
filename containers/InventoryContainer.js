@@ -13,6 +13,7 @@ class InventoryContainer extends Component{
   }
 
   render() {
+    document.title = 'Technical Issues Inventory';
     return (
       <div>
         <Menu/>
