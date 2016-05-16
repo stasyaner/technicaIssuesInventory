@@ -7,12 +7,12 @@ export const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
 export const TOGGLE_ADD_ISSUE_MODAL = 'TOGGLE_ADD_ISSUE_MODAL';
 
 function addIssueAction(issue) {
-  const action = {
+  return {
     type: ADD_ISSUE,
     issue
   }
 }
-export const addIssue = (issue) => dispatch(addIssueAction(issue));
+export {addIssueAction};
 
 function editIssueAction(issue) {
   const action = {

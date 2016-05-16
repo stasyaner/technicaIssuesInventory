@@ -33,17 +33,48 @@ function getIssuesToShow(issues, activePage, issuesToShowNumber) {
 
 const rootReducer = (state = getInitialState(), action) => {
   switch (action.type) {
-    case ActionTypes.SET_ACTIVE_PAGE:
+    case ActionTypes.SET_ACTIVE_PAGE: {
       return Object.assign({}, state, {
         issuesToShow: getIssuesToShow(state.issues, action.activePage,
           state.issuesToShowNumber),
         activePage: action.activePage
       });
-    case ActionTypes.TOGGLE_ADD_ISSUE_MODAL:
+      break;
+    }
+
+    case ActionTypes.ADD_ISSUE: {
+      let newNumberOfPages = state.numberOfPages;
+      let newActivePage = state.activePage;
+
+      const newIssues = state.issues.concat([action.issue]);
+      localStorage.setItem('issues', JSON.stringify(newIssues));
+
+      let newIssuesToShow = getIssuesToShow(newIssues, state.activePage,
+        state.issuesToShowNumber);
+
+      if(newIssuesToShow.length === state.issuesToShow.length) {
+        newNumberOfPages++;
+        newActivePage++;
+        newIssuesToShow = getIssuesToShow(newIssues, newActivePage,
+          state.issuesToShowNumber);
+      }
+
+      return Object.assign({}, state, {
+        issues: newIssues,
+        issuesToShow: newIssuesToShow,
+        numberOfPages: newNumberOfPages,
+        activePage: newActivePage
+      });
+      break;
+    }
+    case ActionTypes.TOGGLE_ADD_ISSUE_MODAL: {
       return Object.assign({}, state, {
         showAddIssueModal: !state.showAddIssueModal
       });
-    case ActionTypes.REMOVE_ISSUE:
+      break;
+    }
+
+    case ActionTypes.REMOVE_ISSUE: {
       let newNumberOfPages = state.numberOfPages;
       let newActivePage = state.activePage;
 
@@ -63,15 +94,18 @@ const rootReducer = (state = getInitialState(), action) => {
           state.issuesToShowNumber);
       }
 
-      return Object.assign({}, state,{
+      return Object.assign({}, state, {
         issues: newIssues,
         issuesToShow: newIssuesToShow,
         numberOfPages: newNumberOfPages,
         activePage: newActivePage
       });
       break;
-    default:
+    }
+    default: {
       return state;
+      break;
+    }
   }
 }
 

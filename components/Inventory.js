@@ -20,8 +20,9 @@ export default (props) => {
   let deleteTooltip = <Tooltip id='deleteTooltip'>delete</Tooltip>;
 
   let tableContent = props.issuesToShow.map((issue) => {
+    issue = issue || []
     i++;
-    let lala = calculateIndex(props.activePage,
+    let issueIndex = calculateIndex(props.activePage,
       props.issuesToShowNumber, props.issuesToShow.length, i);
 		return (
       <tr>
@@ -32,7 +33,7 @@ export default (props) => {
   			<td><Link to={'/details/' + i}>{issue.Description}</Link></td>
   			<td><Link to={'/details/' + i}>{issue.Status}</Link></td>
         <td>
-          <Link to={'/edit/' + i}>
+          <Link to={'/editIssue/' + i}>
             <OverlayTrigger
               placement='top'
               overlay={editTooltip}
@@ -45,7 +46,10 @@ export default (props) => {
           <a href='' onClick={
             (event) => {
               event.preventDefault();
-              props.removeIssue(lala);
+              if (confirm('The issue will be completely remove.' +
+                ' Please confirm.')) {
+                props.removeIssue(issueIndex);
+              }
             }
           }>
             <OverlayTrigger

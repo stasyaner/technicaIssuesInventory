@@ -11,22 +11,34 @@ export default (props) => {
         <Modal.Title>Add an issue</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-      <Form horizontal>
-        <FormGroup>
-          <Col componentClass={ControlLabel} md={2}>
-            Id
-          </Col>
-          <Col md={2}>
-            <input className='form-control' type='text'></input>
-          </Col>
-        </FormGroup>
-
+      <Form
+        horizontal
+        onSubmit={
+          (event) => {
+            event.preventDefault();
+            props.addIssue({
+              Id: props.numberOfIssues + 1,
+              Date: event.target.date.value,
+              Environment: event.target.environment.value,
+              User: event.target.user.value,
+              Description: event.target.description.value,
+              ReasonForTheError: event.target.reasonForTheError.value,
+              IsBlocker: event.target.isBlocker.value,
+              Solution: event.target.solution.value,
+              Handledby: event.target.handledBy.value,
+              Category: event.target.category.value,
+              Status: event.target.status.value
+            });
+            props.toggleAddIssueModal();
+          }
+        }>
         <FormGroup>
           <Col componentClass={ControlLabel} md={2}>
             Date
           </Col>
           <Col md={3}>
-            <input className='form-control' type='text'></input>
+            <input name='date' className='form-control' type='datetime-local'>
+            </input>
           </Col>
         </FormGroup>
 
@@ -35,7 +47,11 @@ export default (props) => {
             Environment
           </Col>
           <Col md={3}>
-            <input className='form-control' type='text'></input>
+          <select name='environment' className='form-control' type='select'>
+            <option>UAT</option>
+            <option>PROD</option>
+            <option>DEV</option>
+          </select>
           </Col>
         </FormGroup>
 
@@ -44,7 +60,7 @@ export default (props) => {
             User
           </Col>
           <Col md={6}>
-            <input className='form-control' type='text'></input>
+            <input name='user' className='form-control' type='text'></input>
           </Col>
         </FormGroup>
 
@@ -53,7 +69,7 @@ export default (props) => {
             Description
           </Col>
           <Col md={7}>
-            <textarea className='form-control'></textarea>
+            <textarea name='description' className='form-control'></textarea>
           </Col>
         </FormGroup>
 
@@ -62,7 +78,7 @@ export default (props) => {
             Reason
           </Col>
           <Col md={6}>
-            <input className='form-control' type='text'></input>
+            <input name='reasonForTheError' className='form-control' type='text'></input>
           </Col>
         </FormGroup>
 
@@ -71,7 +87,11 @@ export default (props) => {
             Blocker
           </Col>
           <Col md={3}>
-            <input className='form-control' type='text'></input>
+            <select name='isBlocker' className='form-control' type='select'>
+              <option>n/a</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
           </Col>
         </FormGroup>
 
@@ -80,7 +100,7 @@ export default (props) => {
             Solution
           </Col>
           <Col md={7}>
-            <textarea className='form-control'></textarea>
+            <textarea name='solution' className='form-control'></textarea>
           </Col>
         </FormGroup>
 
@@ -89,7 +109,7 @@ export default (props) => {
             Handled
           </Col>
           <Col md={3}>
-            <input className='form-control' type='text'></input>
+            <input name='handledBy' className='form-control' type='text'></input>
           </Col>
         </FormGroup>
 
@@ -98,7 +118,10 @@ export default (props) => {
             Category
           </Col>
           <Col md={3}>
-            <input className='form-control' type='text'></input>
+            <select name='category' className='form-control' type='select'>
+              <option>Issue</option>
+              <option>InQuiry</option>
+            </select>
           </Col>
         </FormGroup>
 
@@ -107,14 +130,20 @@ export default (props) => {
             Status
           </Col>
           <Col md={3}>
-            <input className='form-control' type='text'></input>
+            <select name='status' className='form-control' type='select'>
+              <option>Resolved</option>
+              <option>InProgress</option>
+            </select>
+          </Col>
+        </FormGroup>
+
+        <FormGroup>
+          <Col mdOffset={2} md={4}>
+            <Button type='submit' style={{width: '100%'}}>Submit</Button>
           </Col>
         </FormGroup>
       </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.toggleAddIssueModal}>Close</Button>
-      </Modal.Footer>
     </Modal>
   );
 }
