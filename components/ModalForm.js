@@ -12,23 +12,29 @@ export default class ModalForm extends Component{
     if(this.props.issue) {
       this.state = {
         date: this.props.issue.date,
-        environment: this.props.issue.environment,
         user: this.props.issue.user,
         description: this.props.issue.description,
         reasonForTheError: this.props.issue.reasonForTheError,
-        isBlocker: this.props.issue.isBlocker,
         solution: this.props.issue.solution,
-        handledBy: this.props.issue.handledBy,
-        category: this.props.issue.category,
-        status: this.props.issue.status
+        handledBy: this.props.issue.handledBy
       }
     }
+
   }
 
   handleChange(input, value) {
     this.setState({
       [input]: value
     });
+  }
+
+  componentDidMount() {
+    if(this.props.issue) {
+      document.forms[0].environment.value = this.props.issue.environment;
+      document.forms[0].isBlocker.value = this.props.issue.isBlocker;
+      document.forms[0].category.value = this.props.issue.category;
+      document.forms[0].status.value = this.props.issue.status;
+    }
   }
 
   render() {
@@ -82,14 +88,7 @@ export default class ModalForm extends Component{
               Environment
             </Col>
             <Col md={3}>
-            <select name='environment' className='form-control' type='select'
-              value={this.props.issue ? this.state.environment : null}
-              onChange={
-                (event) => {
-                  event.preventDefault();
-                  this.handleChange(event.target.name, event.target.value)
-                }
-              }>
+            <select name='environment' className='form-control' type='select'>
               <option>UAT</option>
               <option>PROD</option>
               <option>DEV</option>

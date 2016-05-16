@@ -16,7 +16,7 @@ class EditIssueContainer extends Component{
     return (
       <ModalForm
         issue={this.props.issueToEdit}
-        issueId={this.props.issueToEdit.Id}
+        issueId={this.props.issueToEdit.id}
         processIssue={this.props.editIssue}
         showModal={this.props.showModalForm}
         toggleModal={

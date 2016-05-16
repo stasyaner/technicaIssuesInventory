@@ -71,16 +71,25 @@ const rootReducer = (state = getInitialState(), action) => {
       break;
     }
 
-    case ActionTypes.TOGGLE_MODAL_FORM: {
+    case ActionTypes.EDIT_ISSUE: {
+
+      const newIssues = [...state.issues.slice(0, action.issue.id - 1),
+        action.issue, ...state.issues.slice(action.issue.id)];
+      localStorage.setItem('issues', JSON.stringify(newIssues));
+
+      const newIssuesToShow = getIssuesToShow(newIssues, state.activePage,
+        state.issuesToShowNumber);
+
       return Object.assign({}, state, {
-        showModalForm: !state.showModalForm
+        issues: newIssues,
+        issuesToShow: newIssuesToShow
       });
       break;
     }
 
-    case ActionTypes.TOGGLE_EDIT_ISSUE_MODAL: {
+    case ActionTypes.TOGGLE_MODAL_FORM: {
       return Object.assign({}, state, {
-        showEditIssueModal: !state.showEditIssueModal
+        showModalForm: !state.showModalForm
       });
       break;
     }
@@ -113,6 +122,7 @@ const rootReducer = (state = getInitialState(), action) => {
       });
       break;
     }
+
     default: {
       return state;
       break;

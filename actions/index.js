@@ -5,7 +5,6 @@ export const REMOVE_ISSUE = 'REMOVE_ISSUE';
 export const EDIT_ISSUE = 'EDIT_ISSUE';
 export const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
 export const TOGGLE_MODAL_FORM = 'TOGGLE_MODAL_FORM';
-export const TOGGLE_EDIT_ISSUE_MODAL = 'TOGGLE_EDIT_ISSUE_MODAL';
 
 function addIssueAction(issue) {
   return {
@@ -45,10 +44,3 @@ function toggleModalFormAction() {
   }
 }
 export {toggleModalFormAction};
-
-function toggleEditIssueModalAction() {
-  return {
-    type: TOGGLE_EDIT_ISSUE_MODAL
-  }
-}
-export {toggleEditIssueModalAction};
