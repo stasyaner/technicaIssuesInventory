@@ -4,7 +4,8 @@ export const ADD_ISSUE = 'ADD_ISSUE';
 export const REMOVE_ISSUE = 'REMOVE_ISSUE';
 export const EDIT_ISSUE = 'EDIT_ISSUE';
 export const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE';
-export const TOGGLE_ADD_ISSUE_MODAL = 'TOGGLE_ADD_ISSUE_MODAL';
+export const TOGGLE_MODAL_FORM = 'TOGGLE_MODAL_FORM';
+export const TOGGLE_EDIT_ISSUE_MODAL = 'TOGGLE_EDIT_ISSUE_MODAL';
 
 function addIssueAction(issue) {
   return {
@@ -15,12 +16,12 @@ function addIssueAction(issue) {
 export {addIssueAction};
 
 function editIssueAction(issue) {
-  const action = {
+  return {
     type: EDIT_ISSUE,
     issue
   }
 }
-export const editIssue = (issue) => dispatch(editIssueAction(issue));
+export {editIssueAction};
 
 function removeIssueAction(index) {
   return {
@@ -38,9 +39,16 @@ function setActivePageAction(activePage) {
 }
 export {setActivePageAction};
 
-function toggleAddIssueModalAction() {
+function toggleModalFormAction() {
   return {
-    type: TOGGLE_ADD_ISSUE_MODAL
+    type: TOGGLE_MODAL_FORM
   }
 }
-export {toggleAddIssueModalAction};
+export {toggleModalFormAction};
+
+function toggleEditIssueModalAction() {
+  return {
+    type: TOGGLE_EDIT_ISSUE_MODAL
+  }
+}
+export {toggleEditIssueModalAction};

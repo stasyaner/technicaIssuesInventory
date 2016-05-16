@@ -20,7 +20,7 @@ function getInitialState() {
     numberOfPages,
     activePage: numberOfPages,
     pagesToShow,
-    showAddIssueModal: true
+    showModalForm: true
   };
 }
 
@@ -46,6 +46,9 @@ const rootReducer = (state = getInitialState(), action) => {
       let newNumberOfPages = state.numberOfPages;
       let newActivePage = state.activePage;
 
+      //Increment the index as we're adding an issue
+      action.issue.Id++;
+
       const newIssues = state.issues.concat([action.issue]);
       localStorage.setItem('issues', JSON.stringify(newIssues));
 
@@ -67,9 +70,17 @@ const rootReducer = (state = getInitialState(), action) => {
       });
       break;
     }
-    case ActionTypes.TOGGLE_ADD_ISSUE_MODAL: {
+
+    case ActionTypes.TOGGLE_MODAL_FORM: {
       return Object.assign({}, state, {
-        showAddIssueModal: !state.showAddIssueModal
+        showModalForm: !state.showModalForm
+      });
+      break;
+    }
+
+    case ActionTypes.TOGGLE_EDIT_ISSUE_MODAL: {
+      return Object.assign({}, state, {
+        showEditIssueModal: !state.showEditIssueModal
       });
       break;
     }

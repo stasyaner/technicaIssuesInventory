@@ -6,7 +6,7 @@ import {Link} from 'react-router';
 
 export default (props) => {
   return (
-    <Modal show={props.showAddIssueModal} onHide={props.toggleAddIssueModal}>
+    <Modal show={props.showModal} onHide={props.toggleModal}>
       <Modal.Header closeButton>
         <Modal.Title>Add an issue</Modal.Title>
       </Modal.Header>
@@ -16,8 +16,8 @@ export default (props) => {
         onSubmit={
           (event) => {
             event.preventDefault();
-            props.addIssue({
-              Id: props.numberOfIssues + 1,
+            props.processIssue({
+              Id: props.numberOfIssues,
               Date: event.target.date.value,
               Environment: event.target.environment.value,
               User: event.target.user.value,
@@ -29,7 +29,7 @@ export default (props) => {
               Category: event.target.category.value,
               Status: event.target.status.value
             });
-            props.toggleAddIssueModal();
+            props.toggleModal();
           }
         }>
         <FormGroup>

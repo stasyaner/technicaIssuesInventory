@@ -3,8 +3,8 @@
 import React, {Component, PropTypes} from 'react';
 import {browserHistory} from 'react-router';
 import {connect} from 'react-redux';
-import AddIssue from '../components/AddIssue';
-import {toggleAddIssueModalAction, addIssueAction} from '../actions';
+import ModalForm from '../components/ModalForm';
+import {toggleModalFormAction, addIssueAction} from '../actions';
 
 class AddIssueContainer extends Component{
   constructor(){
@@ -14,15 +14,15 @@ class AddIssueContainer extends Component{
   render() {
     document.title += ' -- Add An Issue';
     return (
-      <AddIssue
+      <ModalForm
         numberOfIssues={this.props.numberOfIssues}
-        addIssue={this.props.addIssue}
-        showAddIssueModal={this.props.showAddIssueModal}
-        toggleAddIssueModal={
+        processIssue={this.props.addIssue}
+        showModal={this.props.showModalForm}
+        toggleModal={
           () => {
-            this.props.toggleAddIssueModal();
+            this.props.toggleModalForm();
             browserHistory.goBack();
-            this.props.toggleAddIssueModal();
+            this.props.toggleModalForm();
           }
         }/>
     )
@@ -32,14 +32,14 @@ class AddIssueContainer extends Component{
 const mapStateToProps = (state, ownProps) => {
   return {
     numberOfIssues: state.issues.length,
-    showAddIssueModal: state.showAddIssueModal
+    showModalForm: state.showModalForm
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addIssue: (issue) => dispatch(addIssueAction(issue)),
-    toggleAddIssueModal: () => dispatch(toggleAddIssueModalAction())
+    toggleModalForm: () => dispatch(toggleModalFormAction())
   }
 }
 

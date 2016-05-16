@@ -6,8 +6,10 @@ import InventoryContainer from './containers/InventoryContainer';
 import DetailsContainer from './containers/DetailsContainer';
 import AddIssueContainer from './containers/AddIssueContainer';
 import DeleteIssueContainer from './containers/DeleteIssueContainer';
+//import editIssueContainer from './containers/editIssueContainer';
 
-{/*<Route path="*" component={NoMatch}/>*/}
+{/*<Route path="*" component={NoMatch}/>
+<Route path='editIssue/:issueId' component={editIssueContainer}/>*/}
 
 export default (
   <Route path='/' component={InventoryContainer}>
