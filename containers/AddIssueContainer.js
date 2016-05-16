@@ -15,7 +15,7 @@ class AddIssueContainer extends Component{
     document.title += ' -- Add An Issue';
     return (
       <ModalForm
-        numberOfIssues={this.props.numberOfIssues}
+        issueId={this.props.numberOfIssues}
         processIssue={this.props.addIssue}
         showModal={this.props.showModalForm}
         toggleModal={

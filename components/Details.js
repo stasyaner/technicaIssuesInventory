@@ -5,8 +5,8 @@ import {Button, Glyphicon, Form, FormGroup, Col, ControlLabel, Panel} from 'reac
 
 export default (props) => {
   if(props.issue) {
-    const {Id, Date, Environment, User, Description, ReasonForTheError, IsBlocker,
-      Solution, Handledby, Category, Status} = props.issue;
+    const {id, date, environment, user, description, reasonForTheError, isBlocker,
+      solution, handledBy, category, status} = props.issue;
     return (
       <div id='detailsWrapper'>
       <Panel header={<h3>Details</h3>}>
@@ -17,7 +17,7 @@ export default (props) => {
             </Col>
             <Col md={1}>
               <input className='form-control' readOnly type='Id'
-                value={Id}></input>
+                value={id}></input>
             </Col>
           </FormGroup>
 
@@ -27,7 +27,7 @@ export default (props) => {
             </Col>
             <Col md={2}>
               <input className='form-control' readOnly type='text'
-                value={Date}></input>
+                value={date}></input>
             </Col>
           </FormGroup>
 
@@ -37,7 +37,7 @@ export default (props) => {
             </Col>
             <Col md={1}>
               <input className='form-control' readOnly type='text'
-                value={Environment}></input>
+                value={environment}></input>
             </Col>
           </FormGroup>
 
@@ -47,7 +47,7 @@ export default (props) => {
             </Col>
             <Col md={4}>
               <input className='form-control' readOnly type='text'
-                value={User}></input>
+                value={user}></input>
             </Col>
           </FormGroup>
 
@@ -57,7 +57,7 @@ export default (props) => {
             </Col>
             <Col md={5}>
               <textarea className='form-control' readOnly
-                value={Description}></textarea>
+                value={description}></textarea>
             </Col>
           </FormGroup>
 
@@ -65,9 +65,9 @@ export default (props) => {
             <Col componentClass={ControlLabel} md={1}>
               Reason
             </Col>
-            <Col md={ReasonForTheError && ReasonForTheError.length > 3 ? 5 : 1}>
+            <Col md={reasonForTheError && reasonForTheError.length > 3 ? 5 : 1}>
               <input className='form-control' readOnly type='text'
-                value={ReasonForTheError}></input>
+                value={reasonForTheError}></input>
             </Col>
           </FormGroup>
 
@@ -77,7 +77,7 @@ export default (props) => {
             </Col>
             <Col md={1}>
               <input className='form-control' readOnly type='text'
-                value={IsBlocker}></input>
+                value={isBlocker}></input>
             </Col>
           </FormGroup>
 
@@ -87,7 +87,7 @@ export default (props) => {
             </Col>
             <Col md={5}>
               <textarea className='form-control' readOnly
-                value={Solution}></textarea>
+                value={solution}></textarea>
             </Col>
           </FormGroup>
 
@@ -97,7 +97,7 @@ export default (props) => {
             </Col>
             <Col md={2}>
               <input className='form-control' readOnly type='text'
-                value={Handledby}></input>
+                value={handledBy}></input>
             </Col>
           </FormGroup>
 
@@ -107,7 +107,7 @@ export default (props) => {
             </Col>
             <Col md={2}>
               <input className='form-control' readOnly type='text'
-                value={Category}></input>
+                value={category}></input>
             </Col>
           </FormGroup>
 
@@ -117,7 +117,7 @@ export default (props) => {
             </Col>
             <Col md={2}>
               <input className='form-control' readOnly type='text'
-                value={Status}></input>
+                value={status}></input>
             </Col>
           </FormGroup>
         </Form>

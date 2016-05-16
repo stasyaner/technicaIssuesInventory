@@ -3,8 +3,8 @@
 import React, {Component, PropTypes} from 'react';
 import {browserHistory} from 'react-router';
 import {connect} from 'react-redux';
-import EditIssue from '../components/EditIssue';
-import {toggleEditIssueModalAction, editIssueAction} from '../actions';
+import ModalForm from '../components/ModalForm';
+import {toggleModalFormAction, editIssueAction} from '../actions';
 
 class EditIssueContainer extends Component{
   constructor(){
@@ -14,22 +14,33 @@ class EditIssueContainer extends Component{
   render() {
     document.title += ' -- Edit The Issue';
     return (
-      <EditIssue />
+      <ModalForm
+        issue={this.props.issueToEdit}
+        issueId={this.props.issueToEdit.Id}
+        processIssue={this.props.editIssue}
+        showModal={this.props.showModalForm}
+        toggleModal={
+          () => {
+            this.props.toggleModalForm();
+            browserHistory.goBack();
+            this.props.toggleModalForm();
+          }
+      }/>
     )
     }
   }
 
   const mapStateToProps = (state, ownProps) => {
     return {
-      numberOfIssues: state.issues.length,
-      showAddIssueModal: state.showAddIssueModal
+      showModalForm: state.showModalForm,
+      issueToEdit: state.issuesToShow[ownProps.params.issueId]
     }
   }
 
   const mapDispatchToProps = (dispatch) => {
     return {
-      addIssue: (issue) => dispatch(addIssueAction(issue)),
-      toggleAddIssueModal: () => dispatch(toggleAddIssueModalAction())
+      editIssue: (issue) => dispatch(editIssueAction(issue)),
+      toggleModalForm: () => dispatch(toggleModalFormAction())
     }
   }
 

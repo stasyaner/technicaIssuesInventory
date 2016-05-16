@@ -25,13 +25,13 @@ export default (props) => {
     let issueIndex = calculateIndex(props.activePage,
       props.issuesToShowNumber, props.issuesToShow.length, i);
 		return (
-      <tr>
-  			<td><Link to={'/details/' + i}>{issue.Id}</Link></td>
-  			<td><Link to={'/details/' + i}>{issue.Date}</Link></td>
-  			<td><Link to={'/details/' + i}>{issue.Environment}</Link></td>
-  			<td><Link to={'/details/' + i}>{issue.User}</Link></td>
-  			<td><Link to={'/details/' + i}>{issue.Description}</Link></td>
-  			<td><Link to={'/details/' + i}>{issue.Status}</Link></td>
+      <tr key={issue.id}>
+  			<td><Link to={'/details/' + i}>{issue.id}</Link></td>
+  			<td><Link to={'/details/' + i}>{issue.date}</Link></td>
+  			<td><Link to={'/details/' + i}>{issue.environment}</Link></td>
+  			<td><Link to={'/details/' + i}>{issue.user}</Link></td>
+  			<td><Link to={'/details/' + i}>{issue.description}</Link></td>
+  			<td><Link to={'/details/' + i}>{issue.status}</Link></td>
         <td>
           <Link to={'/editIssue/' + i}>
             <OverlayTrigger

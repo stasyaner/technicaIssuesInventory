@@ -1,149 +1,230 @@
 'use strict';
 
-import React from 'react';
+import React, {Component} from 'react';
 import {Modal, Button, Form, FormGroup, Col, ControlLabel} from 'react-bootstrap';
 import {Link} from 'react-router';
 
-export default (props) => {
-  return (
-    <Modal show={props.showModal} onHide={props.toggleModal}>
-      <Modal.Header closeButton>
-        <Modal.Title>Add an issue</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-      <Form
-        horizontal
-        onSubmit={
-          (event) => {
-            event.preventDefault();
-            props.processIssue({
-              Id: props.numberOfIssues,
-              Date: event.target.date.value,
-              Environment: event.target.environment.value,
-              User: event.target.user.value,
-              Description: event.target.description.value,
-              ReasonForTheError: event.target.reasonForTheError.value,
-              IsBlocker: event.target.isBlocker.value,
-              Solution: event.target.solution.value,
-              Handledby: event.target.handledBy.value,
-              Category: event.target.category.value,
-              Status: event.target.status.value
-            });
-            props.toggleModal();
-          }
-        }>
-        <FormGroup>
-          <Col componentClass={ControlLabel} md={2}>
-            Date
-          </Col>
-          <Col md={3}>
-            <input name='date' className='form-control' type='datetime-local'>
-            </input>
-          </Col>
-        </FormGroup>
+//have to do this not Stateless (Presentational, Pure) component to be universal
+export default class ModalForm extends Component{
+  constructor() {
+    super(...arguments);
 
-        <FormGroup>
-          <Col componentClass={ControlLabel} md={2}>
-            Environment
-          </Col>
-          <Col md={3}>
-          <select name='environment' className='form-control' type='select'>
-            <option>UAT</option>
-            <option>PROD</option>
-            <option>DEV</option>
-          </select>
-          </Col>
-        </FormGroup>
+    if(this.props.issue) {
+      this.state = {
+        date: this.props.issue.date,
+        environment: this.props.issue.environment,
+        user: this.props.issue.user,
+        description: this.props.issue.description,
+        reasonForTheError: this.props.issue.reasonForTheError,
+        isBlocker: this.props.issue.isBlocker,
+        solution: this.props.issue.solution,
+        handledBy: this.props.issue.handledBy,
+        category: this.props.issue.category,
+        status: this.props.issue.status
+      }
+    }
+  }
 
-        <FormGroup>
-          <Col componentClass={ControlLabel} md={2}>
-            User
-          </Col>
-          <Col md={6}>
-            <input name='user' className='form-control' type='text'></input>
-          </Col>
-        </FormGroup>
+  handleChange(input, value) {
+    this.setState({
+      [input]: value
+    });
+  }
 
-        <FormGroup>
-          <Col componentClass={ControlLabel} md={2}>
-            Description
-          </Col>
-          <Col md={7}>
-            <textarea name='description' className='form-control'></textarea>
-          </Col>
-        </FormGroup>
+  render() {
+    return (
+      <Modal show={this.props.showModal} onHide={this.props.toggleModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add an issue</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Form
+          horizontal
+          onSubmit={
+            (event) => {
+              event.preventDefault();
+              this.props.processIssue({
+                id: this.props.issueId || 0,
+                date: event.target.date.value,
+                environment: event.target.environment.value,
+                user: event.target.user.value,
+                description: event.target.description.value,
+                reasonForTheError: event.target.reasonForTheError.value,
+                isBlocker: event.target.isBlocker.value,
+                solution: event.target.solution.value,
+                handledBy: event.target.handledBy.value,
+                category: event.target.category.value,
+                status: event.target.status.value
+              });
+              this.props.toggleModal();
+            }
+          }>
+          <FormGroup>
+            <Col componentClass={ControlLabel} md={2}>
+              Date
+            </Col>
+            <Col md={3}>
+              <input name='date' className='form-control' type='datetime-local'
+                required
+                value={this.props.issue ? this.state.date : null}
+                onChange={
+                  (event) => {
+                    event.preventDefault();
+                    this.handleChange(event.target.name, event.target.value)
+                  }
+                }>
+              </input>
+            </Col>
+          </FormGroup>
 
-        <FormGroup>
-          <Col componentClass={ControlLabel} md={2}>
-            Reason
-          </Col>
-          <Col md={6}>
-            <input name='reasonForTheError' className='form-control' type='text'></input>
-          </Col>
-        </FormGroup>
-
-        <FormGroup>
-          <Col componentClass={ControlLabel} md={2}>
-            Blocker
-          </Col>
-          <Col md={3}>
-            <select name='isBlocker' className='form-control' type='select'>
-              <option>n/a</option>
-              <option>Yes</option>
-              <option>No</option>
+          <FormGroup>
+            <Col componentClass={ControlLabel} md={2}>
+              Environment
+            </Col>
+            <Col md={3}>
+            <select name='environment' className='form-control' type='select'
+              value={this.props.issue ? this.state.environment : null}
+              onChange={
+                (event) => {
+                  event.preventDefault();
+                  this.handleChange(event.target.name, event.target.value)
+                }
+              }>
+              <option>UAT</option>
+              <option>PROD</option>
+              <option>DEV</option>
             </select>
-          </Col>
-        </FormGroup>
+            </Col>
+          </FormGroup>
 
-        <FormGroup>
-          <Col componentClass={ControlLabel} md={2}>
-            Solution
-          </Col>
-          <Col md={7}>
-            <textarea name='solution' className='form-control'></textarea>
-          </Col>
-        </FormGroup>
+          <FormGroup>
+            <Col componentClass={ControlLabel} md={2}>
+              User
+            </Col>
+            <Col md={6}>
+              <input name='user' className='form-control' type='text'
+                required
+                value={this.props.issue ? this.state.user : null}
+                onChange={
+                  (event) => {
+                    event.preventDefault();
+                    this.handleChange(event.target.name, event.target.value)
+                  }
+              }></input>
+            </Col>
+          </FormGroup>
 
-        <FormGroup>
-          <Col componentClass={ControlLabel} md={2}>
-            Handled
-          </Col>
-          <Col md={3}>
-            <input name='handledBy' className='form-control' type='text'></input>
-          </Col>
-        </FormGroup>
+          <FormGroup>
+            <Col componentClass={ControlLabel} md={2}>
+              Description
+            </Col>
+            <Col md={7}>
+              <textarea name='description' className='form-control'
+                required
+                value={this.props.issue ? this.state.description : null}
+                onChange={
+                  (event) => {
+                    event.preventDefault();
+                    this.handleChange(event.target.name, event.target.value)
+                  }
+              }></textarea>
+            </Col>
+          </FormGroup>
 
-        <FormGroup>
-          <Col componentClass={ControlLabel} md={2}>
-            Category
-          </Col>
-          <Col md={3}>
-            <select name='category' className='form-control' type='select'>
-              <option>Issue</option>
-              <option>InQuiry</option>
-            </select>
-          </Col>
-        </FormGroup>
+          <FormGroup>
+            <Col componentClass={ControlLabel} md={2}>
+              Reason
+            </Col>
+            <Col md={6}>
+              <input name='reasonForTheError' className='form-control' type='text'
+                value={this.props.issue ? this.state.reasonForTheError : null}
+                onChange={
+                  (event) => {
+                    event.preventDefault();
+                    this.handleChange(event.target.name, event.target.value)
+                  }
+              }></input>
+            </Col>
+          </FormGroup>
 
-        <FormGroup>
-          <Col componentClass={ControlLabel} md={2}>
-            Status
-          </Col>
-          <Col md={3}>
-            <select name='status' className='form-control' type='select'>
-              <option>Resolved</option>
-              <option>InProgress</option>
-            </select>
-          </Col>
-        </FormGroup>
+          <FormGroup>
+            <Col componentClass={ControlLabel} md={2}>
+              Blocker
+            </Col>
+            <Col md={3}>
+              <select name='isBlocker' className='form-control' type='select'>
+                <option>n/a</option>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </Col>
+          </FormGroup>
 
-        <FormGroup>
-          <Col mdOffset={2} md={4}>
-            <Button type='submit' style={{width: '100%'}}>Submit</Button>
-          </Col>
-        </FormGroup>
-      </Form>
-      </Modal.Body>
-    </Modal>
-  );
+          <FormGroup>
+            <Col componentClass={ControlLabel} md={2}>
+              Solution
+            </Col>
+            <Col md={7}>
+              <textarea name='solution' className='form-control'
+              value={this.props.issue ? this.state.solution : null}
+              onChange={
+                (event) => {
+                  event.preventDefault();
+                  this.handleChange(event.target.name, event.target.value)
+                }
+              }></textarea>
+            </Col>
+          </FormGroup>
+
+          <FormGroup>
+            <Col componentClass={ControlLabel} md={2}>
+              Handled
+            </Col>
+            <Col md={3}>
+              <input name='handledBy' className='form-control' type='text'
+                required
+                value={this.props.issue ? this.state.handledBy : null}
+                onChange={
+                  (event) => {
+                    event.preventDefault();
+                    this.handleChange(event.target.name, event.target.value)
+                  }
+              }></input>
+            </Col>
+          </FormGroup>
+
+          <FormGroup>
+            <Col componentClass={ControlLabel} md={2}>
+              Category
+            </Col>
+            <Col md={3}>
+              <select name='category' className='form-control' type='select'>
+                <option>Issue</option>
+                <option>InQuiry</option>
+              </select>
+            </Col>
+          </FormGroup>
+
+          <FormGroup>
+            <Col componentClass={ControlLabel} md={2}>
+              Status
+            </Col>
+            <Col md={3}>
+              <select name='status' className='form-control' type='select'>
+                <option>Resolved</option>
+                <option>InProgress</option>
+              </select>
+            </Col>
+          </FormGroup>
+
+          <FormGroup>
+            <Col mdOffset={2} md={4}>
+              <Button type='submit' style={{width: '100%'}}>Submit</Button>
+            </Col>
+          </FormGroup>
+        </Form>
+        </Modal.Body>
+      </Modal>
+    );
+  }
 }

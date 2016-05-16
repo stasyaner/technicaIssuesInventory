@@ -47,7 +47,7 @@ const rootReducer = (state = getInitialState(), action) => {
       let newActivePage = state.activePage;
 
       //Increment the index as we're adding an issue
-      action.issue.Id++;
+      action.issue.id++;
 
       const newIssues = state.issues.concat([action.issue]);
       localStorage.setItem('issues', JSON.stringify(newIssues));
