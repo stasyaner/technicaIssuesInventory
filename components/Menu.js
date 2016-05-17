@@ -21,11 +21,38 @@ export default (props) => {
               Add an issue
             </Link>
           </li>
-          <li key='exportXlsx'>
-            <Link to='/exportXlsx'>
+          <li key='xlsxExport'>
+            <a href='' onClick={(event) => {
+              event.preventDefault();
+
+              fetch('/xlsxExport', {
+                headers: {
+                  'Content-Type': 'application/json; charset=utf-8'
+                },
+                method: 'POST',
+                body: localStorage.getItem('issues')
+              })
+              .then((response) => response.blob())
+              .then((responseData)=> {
+                let a = document.createElement('a');
+                a.style = 'visibility:hidden';
+                let blob = new Blob([responseData], {
+                  'type': 'application/vnd.openxmlformats' +
+                    '-officedocument.spreadsheetml.sheet'
+                });
+                a.href = window.URL.createObjectURL(blob);
+                a.download = 'TechnicalIssuesInventory.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+              })
+              .catch((err) => {
+                alert('We are sorry, there was some error fetching the excel sheet');
+              })
+            }}>
                 <Glyphicon glyph='export'/>
                 Export in excel
-            </Link>
+            </a>
           </li>
         </Nav>
         <Navbar.Form pullRight>

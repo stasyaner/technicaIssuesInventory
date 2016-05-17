@@ -15,11 +15,11 @@ module.exports = {
         loaders: ['react-hot', 'babel?cacheDirectory']
       },
       {
-        test: /\.css?$/,
+        test: /\.css$/,
         loaders: ['style-loader', 'css-loader']
       },
       {
-        test: /\.less?$/,
+        test: /\.less$/,
         loaders: ['style-loader', 'css-loader', 'less-loader']
       },
       {
@@ -46,7 +46,7 @@ module.exports = {
     historyApiFallback: true, // !!this is rly needed for HTML5 history api and react router
     // inline: true,
     proxy: {
-      '/xlsxImport': {
+      '/xlsxExport': {
         target: 'http://localhost:3000',
         secure: false,
         ws: false
