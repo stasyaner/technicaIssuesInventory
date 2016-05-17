@@ -6,10 +6,7 @@ function getInitialState() {
   const issues = JSON.parse(localStorage.getItem('issues')) || [];
   const issuesToShowNumber = 8;
   const pagesToShow = 10;
-  let numberOfPages = issues.length / issuesToShowNumber;
-  if((issues.length % issuesToShowNumber) > 0) {
-    numberOfPages = Math.floor(issues.length / issuesToShowNumber) + 1;
-  };
+  let numberOfPages = getNumberOfPages(issues.length, issuesToShowNumber);
   let issuesToShow = getIssuesToShow(issues, numberOfPages,
     issuesToShowNumber);
 
@@ -29,6 +26,15 @@ function getIssuesToShow(issues, activePage, issuesToShowNumber) {
   const endSlice = startSlice + issuesToShowNumber;
 
   return issues.slice(startSlice, endSlice);
+}
+
+function getNumberOfPages(numberOfIssues, issuesToShowNumber){
+  let numberOfPages = numberOfIssues / issuesToShowNumber;
+  if((numberOfIssues % issuesToShowNumber) > 0) {
+    numberOfPages = Math.floor(numberOfIssues / issuesToShowNumber) + 1;
+  };
+
+  return numberOfPages;
 }
 
 const rootReducer = (state = getInitialState(), action) => {
@@ -113,6 +119,36 @@ const rootReducer = (state = getInitialState(), action) => {
         newIssuesToShow = getIssuesToShow(newIssues, newActivePage,
           state.issuesToShowNumber);
       }
+
+      return Object.assign({}, state, {
+        issues: newIssues,
+        issuesToShow: newIssuesToShow,
+        numberOfPages: newNumberOfPages,
+        activePage: newActivePage
+      });
+      break;
+    }
+
+    //TODO: make this work via router
+    case ActionTypes.SEARCH_ISSUE: {
+
+      const newActivePage = 1;
+
+      const newIssues = JSON.parse(localStorage.getItem('issues'))
+        .filter((item) => {
+          if((item.date.indexOf(action.searchText) != -1)
+            || (item.user.indexOf(action.searchText) != -1)
+            || (item.description.indexOf(action.searchText) != -1)
+            || (item.description.indexOf(action.searchText) != -1))
+            return true;
+          return false;
+        });
+
+      const newNumberOfPages = getNumberOfPages(newIssues.length,
+        state.issuesToShowNumber);
+
+      const newIssuesToShow = getIssuesToShow(newIssues, newActivePage,
+        state.issuesToShowNumber);
 
       return Object.assign({}, state, {
         issues: newIssues,

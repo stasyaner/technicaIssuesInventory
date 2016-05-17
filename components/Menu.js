@@ -40,7 +40,7 @@ export default (props) => {
                   'type': 'application/vnd.openxmlformats' +
                     '-officedocument.spreadsheetml.sheet'
                 });
-                a.href = window.URL.createObjectURL(blob);
+                a.href = URL.createObjectURL(blob);
                 a.download = 'TechnicalIssuesInventory.xlsx';
                 document.body.appendChild(a);
                 a.click();
@@ -48,7 +48,9 @@ export default (props) => {
               })
               .catch((err) => {
                 alert('We are sorry, there was some error fetching the excel sheet');
-              })
+              });
+
+
             }}>
                 <Glyphicon glyph='export'/>
                 Export in excel
@@ -57,8 +59,14 @@ export default (props) => {
         </Nav>
         <Navbar.Form pullRight>
           <FormGroup>
-            <FormControl type='text' placeholder="Search" />
+            <FormControl id='searchIssueInput' type='text' placeholder='Search'/>
           </FormGroup>
+          {' '}
+          <Button onClick={() => {
+              props.searchIssue(document
+                .getElementById('searchIssueInput').value);
+            }
+          }>Submit</Button>
         </Navbar.Form>
       </Navbar.Collapse>
     </Navbar>

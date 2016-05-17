@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import Inventory from '../components/Inventory';
 import Pagination from '../components/Pagination';
 import Menu from '../components/Menu';
-import {setActivePageAction, removeIssueAction} from '../actions';
+import {setActivePageAction, removeIssueAction, searchIssueAction} from '../actions';
 
 class InventoryContainer extends Component{
   constructor(){
@@ -16,7 +16,7 @@ class InventoryContainer extends Component{
     document.title = 'Technical Issues Inventory';
     return (
       <div>
-        <Menu/>
+        <Menu searchIssue={this.props.searchIssue} />
         <Inventory
           issuesToShow={this.props.issuesToShow}
           activePage={this.props.activePage}
@@ -48,7 +48,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setActivePage: (activePage) => dispatch(setActivePageAction(activePage)),
-    removeIssue: (index) => dispatch(removeIssueAction(index))
+    removeIssue: (index) => dispatch(removeIssueAction(index)),
+    searchIssue: (searchText) => dispatch(searchIssueAction(searchText))
   }
 }
 
