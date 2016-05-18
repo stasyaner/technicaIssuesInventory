@@ -135,12 +135,12 @@ const rootReducer = (state = getInitialState(), action) => {
       const newActivePage = 1;
 
       const newIssues = JSON.parse(localStorage.getItem('issues'))
-        .filter((item) => {
-          if((item.date.indexOf(action.searchText) != -1)
-            || (item.user.indexOf(action.searchText) != -1)
-            || (item.description.indexOf(action.searchText) != -1)
-            || (item.description.indexOf(action.searchText) != -1))
+        .filter((issue) => {
+          if((issue.date.indexOf(action.searchText) != -1)
+            || (issue.user.indexOf(action.searchText) != -1)
+            || (issue.description.indexOf(action.searchText) != -1)) {
             return true;
+          }
           return false;
         });
 

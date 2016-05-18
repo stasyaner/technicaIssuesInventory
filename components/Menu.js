@@ -18,7 +18,13 @@ export default (props) => {
           <li key='addIssue'>
             <Link to='/addIssue'>
               <Glyphicon glyph='plus'/>
-              Add an issue
+              {' '}Add an issue
+            </Link>
+          </li>
+          <li key='pieChart'>
+            <Link to='/pieChart'>
+              <Glyphicon glyph='signal'/>
+              {' '}PieCharts
             </Link>
           </li>
           <li key='xlsxExport'>
@@ -53,7 +59,7 @@ export default (props) => {
 
             }}>
                 <Glyphicon glyph='export'/>
-                Export in excel
+                {' '}Export in excel
             </a>
           </li>
         </Nav>

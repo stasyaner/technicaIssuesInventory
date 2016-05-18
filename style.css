@@ -16,6 +16,24 @@ div#inventoryWrapper {
   margin: 100px auto auto auto;
 }
 
+.ct-chart-issue-statuses, .ct-chart-issue-dates, .ct-chart-issue-environments  {
+  float: left;
+  margin-left: 50px;
+}
+
+.ct-series-a .ct-slice-pie {
+  /* fill of the pie slieces */
+  fill: #bf3e11;
+  /* give your pie slices some outline or separate them visually by using the background color here */
+  stroke: white;
+  /* outline width */
+  stroke-width: 4px;
+}
+
+.ct-label {
+  font-size: 1em;
+}
+
 table#inventory {
   margin: 0;
   table-layout: fixed;

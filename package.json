@@ -27,6 +27,7 @@
     "babel-preset-react": "^6.5.0",
     "body-parser": "^1.15.1",
     "bootstrap": "^3.3.6",
+    "chartist": "^0.9.7",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
     "json2xls": "^0.1.1",

@@ -1,6 +1,6 @@
 'use strict';
 
-import React, {Component} from 'react';
+import React from 'react';
 import {Table, Button, Glyphicon, Tooltip,
   OverlayTrigger} from 'react-bootstrap';
 import {Link} from 'react-router';
@@ -55,7 +55,7 @@ export default (props) => {
             <OverlayTrigger
               placement='top'
               overlay={deleteTooltip}
-              delayShow={300} delayHide={150}>
+              delayShow={150}>
               <Glyphicon glyph='trash' style={{color: '#d9534f'}}/>
             </OverlayTrigger>
           </a>
