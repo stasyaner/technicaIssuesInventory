@@ -4,6 +4,36 @@ import React from 'react';
 import {Navbar,Glyphicon,
   NavItem, Nav, Button, FormGroup, FormControl} from 'react-bootstrap';
 import {Link} from 'react-router';
+import {LinkContainer} from 'react-router-bootstrap';
+
+function handleXlsxExportClick(event) {
+  event.preventDefault();
+
+  fetch('/xlsxExport', {
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    method: 'POST',
+    body: localStorage.getItem('issues')
+  })
+  .then((response) => response.blob())
+  .then((responseData)=> {
+    let a = document.createElement('a');
+    a.style = 'visibility:hidden';
+    let blob = new Blob([responseData], {
+      'type': 'application/vnd.openxmlformats' +
+        '-officedocument.spreadsheetml.sheet'
+    });
+    a.href = URL.createObjectURL(blob);
+    a.download = 'TechnicalIssuesInventory.xlsx';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  })
+  .catch((err) => {
+    alert('We are sorry, there was some error fetching the excel sheet');
+  });
+}
 
 export default (props) => {
   return (
@@ -15,53 +45,22 @@ export default (props) => {
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav>
-          <li key='addIssue'>
-            <Link to='/addIssue'>
+          <LinkContainer to='/addIssue'>
+            <NavItem>
               <Glyphicon glyph='plus'/>
               {' '}Add an issue
-            </Link>
-          </li>
-          <li key='pieChart'>
-            <Link to='/pieChart'>
+            </NavItem>
+          </LinkContainer>
+          <LinkContainer to='/pieChart'>
+            <NavItem>
               <Glyphicon glyph='signal'/>
               {' '}PieCharts
-            </Link>
-          </li>
-          <li key='xlsxExport'>
-            <a href='' onClick={(event) => {
-              event.preventDefault();
-
-              fetch('/xlsxExport', {
-                headers: {
-                  'Content-Type': 'application/json; charset=utf-8'
-                },
-                method: 'POST',
-                body: localStorage.getItem('issues')
-              })
-              .then((response) => response.blob())
-              .then((responseData)=> {
-                let a = document.createElement('a');
-                a.style = 'visibility:hidden';
-                let blob = new Blob([responseData], {
-                  'type': 'application/vnd.openxmlformats' +
-                    '-officedocument.spreadsheetml.sheet'
-                });
-                a.href = URL.createObjectURL(blob);
-                a.download = 'TechnicalIssuesInventory.xlsx';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-              })
-              .catch((err) => {
-                alert('We are sorry, there was some error fetching the excel sheet');
-              });
-
-
-            }}>
-                <Glyphicon glyph='export'/>
-                {' '}Export in excel
-            </a>
-          </li>
+            </NavItem>
+          </LinkContainer>
+          <NavItem onClick={handleXlsxExportClick}>
+            <Glyphicon glyph='export'/>
+            {' '}Export in excel
+          </NavItem>
         </Nav>
         <Navbar.Form pullRight>
           <FormGroup>
