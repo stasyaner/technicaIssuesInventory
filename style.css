@@ -1,0 +1,78 @@
+/*#root {
+  width: 80%;
+  margin: 50px auto 50px auto;
+}*/
+
+#root a {
+  outline: 0;
+}
+
+#root .navbar-brand {
+  font-weight: bold;
+}
+
+div#inventoryWrapper {
+  height: 280px;
+  margin: 100px auto auto auto;
+}
+
+.ct-chart-issue-statuses, .ct-chart-issue-dates, .ct-chart-issue-environments  {
+  float: left;
+  margin-left: 50px;
+}
+
+.ct-series-a .ct-slice-pie {
+  /* fill of the pie slieces */
+  fill: #bf3e11;
+  /* give your pie slices some outline or separate them visually by using the background color here */
+  stroke: white;
+  /* outline width */
+  stroke-width: 4px;
+}
+
+.ct-label {
+  font-size: 1em;
+}
+
+table#inventory {
+  margin: 0;
+  table-layout: fixed;
+}
+
+table#inventory a {
+  display: block;
+  width: 100%;
+  color: inherit;
+  height: 20px;
+  overflow: hidden;
+}
+
+table#inventory  a:hover, a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+table#inventory th {
+  text-align: center;
+}
+
+table#inventory tr td:first-child, td:nth-child(2), td:nth-child(3),
+  td:nth-child(6), td:nth-child(7),td:nth-child(8) {
+  text-align: center;
+}
+
+table#inventory th:first-child, th:nth-child(3) {
+  width: 60px;
+}
+
+table#inventory th:nth-child(2) {
+  width: 100px;
+}
+
+table#inventory th:nth-child(6) {
+  width: 80px;
+}
+
+table#inventory th:nth-child(7), th:nth-child(8) {
+  width: 35px;
+}

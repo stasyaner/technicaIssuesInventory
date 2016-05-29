@@ -1,46 +1,52 @@
 var webpack = require('webpack');
 
-var config = {
-  devtool: 'eval-source-map',
-  entry:  __dirname + "/app/App.js",
+module.exports = {
+  //devtool: 'eval-source-map',
+  entry:  './index',
   output: {
-    path: __dirname + "/public",
-    filename: "bundle.js"
+    publicPath: '/static/',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel'] //?cacheDirectory
+        loaders: ['react-hot', 'babel?cacheDirectory']
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style-loader', 'css-loader']
       },
       {
         test: /\.less$/,
-        exclude: /node_modules/,
         loaders: ['style-loader', 'css-loader', 'less-loader']
       },
       {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
+      }
+      ,
+      {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        exclude: /node_modules/,
         loader: 'url-loader?limit=10000&minetype=application/font-woff'
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        exclude: /node_modules/,
         loader: 'file-loader'
       }
     ]
   },
   resolve:{
-    extensions: ['', '.js', '.jsx', '.less']
+    extensions: ['', '.js', '.jsx', '.less', '.css', '.scss']
   },
   devServer: {
-    contentBase: "./public",
-    colors: true,
-    historyApiFallback: true,
-    inline: true,
+    // contentBase: './public',
+    // colors: true,
+    historyApiFallback: true, // !!this is rly needed for HTML5 history api and react router
+    // inline: true,
     proxy: {
-      '/xlsxImport': {
+      '/xlsxExport': {
         target: 'http://localhost:3000',
         secure: false,
         ws: false
@@ -62,5 +68,3 @@ if (process.env.NODE_ENV === 'production') {
     })
   ];
 };
-
-module.exports = config;
