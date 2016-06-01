@@ -15,6 +15,7 @@ class AddIssueContainer extends Component{
     document.title += ' -- Add An Issue';
     return (
       <ModalForm
+        title='Add An Issue'
         issueId={this.props.numberOfIssues}
         processIssue={this.props.addIssue}
         showModal={this.props.showModalForm}

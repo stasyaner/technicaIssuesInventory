@@ -41,7 +41,7 @@ export default class ModalForm extends Component{
     return (
       <Modal show={this.props.showModal} onHide={this.props.toggleModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Add an issue</Modal.Title>
+          <Modal.Title>{this.props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form
@@ -69,8 +69,8 @@ export default class ModalForm extends Component{
             <Col componentClass={ControlLabel} md={2}>
               Date
             </Col>
-            <Col md={3}>
-              <input name='date' className='form-control' type='datetime-local'
+            <Col md={4}>
+              <input name='date' className='form-control' type='date'
                 required
                 value={this.props.issue ? this.state.date : null}
                 onChange={
@@ -89,9 +89,9 @@ export default class ModalForm extends Component{
             </Col>
             <Col md={3}>
             <select name='environment' className='form-control' type='select'>
-              <option>UAT</option>
-              <option>PROD</option>
-              <option>DEV</option>
+              <option value='UAT'>UAT</option>
+              <option value='PROD'>PROD</option>
+              <option value='DEV'>DEV</option>
             </select>
             </Col>
           </FormGroup>
@@ -152,9 +152,9 @@ export default class ModalForm extends Component{
             </Col>
             <Col md={3}>
               <select name='isBlocker' className='form-control' type='select'>
-                <option>n/a</option>
-                <option>Yes</option>
-                <option>No</option>
+                <option value='n/a'>n/a</option>
+                <option value='Yes'>Yes</option>
+                <option value='No'>No</option>
               </select>
             </Col>
           </FormGroup>
@@ -198,8 +198,8 @@ export default class ModalForm extends Component{
             </Col>
             <Col md={3}>
               <select name='category' className='form-control' type='select'>
-                <option>Issue</option>
-                <option>InQuiry</option>
+                <option value='Issue'>Issue</option>
+                <option value='InQuiry'>InQuiry</option>
               </select>
             </Col>
           </FormGroup>
@@ -210,8 +210,8 @@ export default class ModalForm extends Component{
             </Col>
             <Col md={3}>
               <select name='status' className='form-control' type='select'>
-                <option>Resolved</option>
-                <option>InProgress</option>
+                <option value='Resolved'>Resolved</option>
+                <option value='InProgress'>InProgress</option>
               </select>
             </Col>
           </FormGroup>

@@ -15,6 +15,7 @@ class EditIssueContainer extends Component{
     document.title += ' -- Edit The Issue';
     return (
       <ModalForm
+        title='Edit An Issue'
         issue={this.props.issueToEdit}
         issueId={this.props.issueToEdit.id}
         processIssue={this.props.editIssue}

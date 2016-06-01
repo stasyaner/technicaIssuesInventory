@@ -1,6 +1,7 @@
 'use strict';
 
 import * as ActionTypes from '../actions';
+import objectAssign from 'object-assign';
 
 function getInitialState() {
   const issues = JSON.parse(localStorage.getItem('issues')) || [];
@@ -40,7 +41,7 @@ function getNumberOfPages(numberOfIssues, issuesToShowNumber){
 const rootReducer = (state = getInitialState(), action) => {
   switch (action.type) {
     case ActionTypes.SET_ACTIVE_PAGE: {
-      return Object.assign({}, state, {
+      return objectAssign({}, state, {
         issuesToShow: getIssuesToShow(state.issues, action.activePage,
           state.issuesToShowNumber),
         activePage: action.activePage
@@ -68,7 +69,7 @@ const rootReducer = (state = getInitialState(), action) => {
           state.issuesToShowNumber);
       }
 
-      return Object.assign({}, state, {
+      return objectAssign({}, state, {
         issues: newIssues,
         issuesToShow: newIssuesToShow,
         numberOfPages: newNumberOfPages,
@@ -86,7 +87,7 @@ const rootReducer = (state = getInitialState(), action) => {
       const newIssuesToShow = getIssuesToShow(newIssues, state.activePage,
         state.issuesToShowNumber);
 
-      return Object.assign({}, state, {
+      return objectAssign({}, state, {
         issues: newIssues,
         issuesToShow: newIssuesToShow
       });
@@ -94,7 +95,7 @@ const rootReducer = (state = getInitialState(), action) => {
     }
 
     case ActionTypes.TOGGLE_MODAL_FORM: {
-      return Object.assign({}, state, {
+      return objectAssign({}, state, {
         showModalForm: !state.showModalForm
       });
       break;
@@ -120,7 +121,7 @@ const rootReducer = (state = getInitialState(), action) => {
           state.issuesToShowNumber);
       }
 
-      return Object.assign({}, state, {
+      return objectAssign({}, state, {
         issues: newIssues,
         issuesToShow: newIssuesToShow,
         numberOfPages: newNumberOfPages,
@@ -150,7 +151,7 @@ const rootReducer = (state = getInitialState(), action) => {
       const newIssuesToShow = getIssuesToShow(newIssues, newActivePage,
         state.issuesToShowNumber);
 
-      return Object.assign({}, state, {
+      return objectAssign({}, state, {
         issues: newIssues,
         issuesToShow: newIssuesToShow,
         numberOfPages: newNumberOfPages,

@@ -47,9 +47,9 @@ module.exports = {
     // inline: true,
     proxy: {
       '/xlsxExport': {
-        target: 'http://localhost:3000',
+        target: 'ws://localhost:3000',
         secure: false,
-        ws: false
+        ws: true
       },
     },
   }

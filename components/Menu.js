@@ -1,15 +1,24 @@
 'use strict';
 
 import React from 'react';
-import {Navbar,Glyphicon,
+import Promise from 'es6-promise';
+import fetch from 'fetch-ie8';
+import {Navbar, Glyphicon,
   NavItem, Nav, Button, FormGroup, FormControl} from 'react-bootstrap';
 import {Link} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
 
 function handleXlsxExportClick(event) {
   event.preventDefault();
+  let newFetch;
+  if (window.fetch) {
+    newFetch = window.fetch;
+  }
+  else {
+    newFetch = fetch;
+  }
 
-  fetch('/xlsxExport', {
+  newFetch('/xlsxExport', {
     headers: {
       'Content-Type': 'application/json; charset=utf-8'
     },
@@ -18,17 +27,22 @@ function handleXlsxExportClick(event) {
   })
   .then((response) => response.blob())
   .then((responseData)=> {
-    let a = document.createElement('a');
-    a.style = 'visibility:hidden';
     let blob = new Blob([responseData], {
       'type': 'application/vnd.openxmlformats' +
         '-officedocument.spreadsheetml.sheet'
     });
-    a.href = URL.createObjectURL(blob);
-    a.download = 'TechnicalIssuesInventory.xlsx';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    if(navigator.appVersion.toString().indexOf('.NET') > 0) {
+      window.navigator.msSaveOrOpenBlob(blob, 'TechnicalIssuesInventory.xlsx');
+    }
+    else {
+      let a = document.createElement('a');
+      a.style.display = 'none';
+      a.setAttribute('href', URL.createObjectURL(blob));
+      a.setAttribute('download', 'TechnicalIssuesInventory.xlsx');
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
   })
   .catch((err) => {
     alert('We are sorry, there was some error fetching the excel sheet');
